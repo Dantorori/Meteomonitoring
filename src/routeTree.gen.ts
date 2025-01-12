@@ -11,36 +11,20 @@
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
+import { Route as TestImport } from './routes/test'
 import { Route as IndexImport } from './routes/index'
-import { Route as TableIndexImport } from './routes/table/index'
-import { Route as TableCompanyIdImport } from './routes/table/$companyId'
-import { Route as TableLinedetailsLineIdImport } from './routes/table/line_details.$lineId'
 
 // Create/Update Routes
+
+const TestRoute = TestImport.update({
+  id: '/test',
+  path: '/test',
+  getParentRoute: () => rootRoute,
+} as any)
 
 const IndexRoute = IndexImport.update({
   id: '/',
   path: '/',
-  getParentRoute: () => rootRoute,
-} as any)
-
-const TableIndexRoute = TableIndexImport.update({
-  id: '/table/',
-  path: '/table/',
-  getParentRoute: () => rootRoute,
-} as any)
-
-const TableCompanyIdRoute = TableCompanyIdImport.update({
-  id: '/table/$companyId',
-  path: '/table/$companyId',
-  getParentRoute: () => rootRoute,
-} as any).lazy(() =>
-  import('./routes/table/$companyId.lazy').then((d) => d.Route),
-)
-
-const TableLinedetailsLineIdRoute = TableLinedetailsLineIdImport.update({
-  id: '/table/line_details/$lineId',
-  path: '/table/line_details/$lineId',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -55,25 +39,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexImport
       parentRoute: typeof rootRoute
     }
-    '/table/$companyId': {
-      id: '/table/$companyId'
-      path: '/table/$companyId'
-      fullPath: '/table/$companyId'
-      preLoaderRoute: typeof TableCompanyIdImport
-      parentRoute: typeof rootRoute
-    }
-    '/table/': {
-      id: '/table/'
-      path: '/table'
-      fullPath: '/table'
-      preLoaderRoute: typeof TableIndexImport
-      parentRoute: typeof rootRoute
-    }
-    '/table/line_details/$lineId': {
-      id: '/table/line_details/$lineId'
-      path: '/table/line_details/$lineId'
-      fullPath: '/table/line_details/$lineId'
-      preLoaderRoute: typeof TableLinedetailsLineIdImport
+    '/test': {
+      id: '/test'
+      path: '/test'
+      fullPath: '/test'
+      preLoaderRoute: typeof TestImport
       parentRoute: typeof rootRoute
     }
   }
@@ -83,56 +53,37 @@ declare module '@tanstack/react-router' {
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/table/$companyId': typeof TableCompanyIdRoute
-  '/table': typeof TableIndexRoute
-  '/table/line_details/$lineId': typeof TableLinedetailsLineIdRoute
+  '/test': typeof TestRoute
 }
 
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/table/$companyId': typeof TableCompanyIdRoute
-  '/table': typeof TableIndexRoute
-  '/table/line_details/$lineId': typeof TableLinedetailsLineIdRoute
+  '/test': typeof TestRoute
 }
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexRoute
-  '/table/$companyId': typeof TableCompanyIdRoute
-  '/table/': typeof TableIndexRoute
-  '/table/line_details/$lineId': typeof TableLinedetailsLineIdRoute
+  '/test': typeof TestRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths:
-    | '/'
-    | '/table/$companyId'
-    | '/table'
-    | '/table/line_details/$lineId'
+  fullPaths: '/' | '/test'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/table/$companyId' | '/table' | '/table/line_details/$lineId'
-  id:
-    | '__root__'
-    | '/'
-    | '/table/$companyId'
-    | '/table/'
-    | '/table/line_details/$lineId'
+  to: '/' | '/test'
+  id: '__root__' | '/' | '/test'
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  TableCompanyIdRoute: typeof TableCompanyIdRoute
-  TableIndexRoute: typeof TableIndexRoute
-  TableLinedetailsLineIdRoute: typeof TableLinedetailsLineIdRoute
+  TestRoute: typeof TestRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  TableCompanyIdRoute: TableCompanyIdRoute,
-  TableIndexRoute: TableIndexRoute,
-  TableLinedetailsLineIdRoute: TableLinedetailsLineIdRoute,
+  TestRoute: TestRoute,
 }
 
 export const routeTree = rootRoute
@@ -146,22 +97,14 @@ export const routeTree = rootRoute
       "filePath": "__root.tsx",
       "children": [
         "/",
-        "/table/$companyId",
-        "/table/",
-        "/table/line_details/$lineId"
+        "/test"
       ]
     },
     "/": {
       "filePath": "index.tsx"
     },
-    "/table/$companyId": {
-      "filePath": "table/$companyId.tsx"
-    },
-    "/table/": {
-      "filePath": "table/index.tsx"
-    },
-    "/table/line_details/$lineId": {
-      "filePath": "table/line_details.$lineId.tsx"
+    "/test": {
+      "filePath": "test.tsx"
     }
   }
 }

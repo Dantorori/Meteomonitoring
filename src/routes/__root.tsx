@@ -3,7 +3,7 @@ import { TanStackRouterDevtools } from "@tanstack/router-devtools";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import { createGlobalStyle, ThemeProvider } from "styled-components";
-import { theme } from "../styles/theme";
+import { theme } from "../theme";
 
 const GlobalStyle = createGlobalStyle`
 *{
