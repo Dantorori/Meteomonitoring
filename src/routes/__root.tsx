@@ -1,7 +1,5 @@
 import { createRootRoute, Outlet } from "@tanstack/react-router";
 import { TanStackRouterDevtools } from "@tanstack/router-devtools";
-import Header from "../components/Header";
-import Footer from "../components/Footer";
 import { createGlobalStyle, ThemeProvider } from "styled-components";
 import { theme } from "../theme";
 
@@ -24,11 +22,9 @@ export const Route = createRootRoute({
     <>
       <GlobalStyle />
       <ThemeProvider theme={theme}>
-        <Header />
         <Outlet />
-        <Footer />
-        <TanStackRouterDevtools />
       </ThemeProvider>
+      <TanStackRouterDevtools />
     </>
   ),
 });

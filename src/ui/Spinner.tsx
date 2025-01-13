@@ -16,11 +16,9 @@ const AnimatedSpinner = styled.img`
 
 export default function Spinner() {
   return (
-    <>
-      <AnimatedSpinner
-        src="/spinner2.svg"
-        alt="spinner"
-      />
-    </>
+    <AnimatedSpinner
+      src="/spinner2.svg"
+      alt="spinner"
+    />
   );
 }

@@ -1,5 +1,10 @@
+import { createFileRoute } from "@tanstack/react-router";
 import Spinner from "@ui/Spinner";
 import styled from "styled-components";
+
+export const Route = createFileRoute("/test/loading")({
+  component: RouteComponent,
+});
 
 const LoadingContainer = styled.div`
   height: 100dvh;
@@ -8,7 +13,7 @@ const LoadingContainer = styled.div`
   align-items: center;
 `;
 
-export default function PendingComponent() {
+function RouteComponent() {
   return (
     <LoadingContainer>
       <Spinner />

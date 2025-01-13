@@ -11,20 +11,27 @@
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
-import { Route as TestImport } from './routes/test'
+import { Route as TableImport } from './routes/table'
 import { Route as IndexImport } from './routes/index'
+import { Route as TestLoadingImport } from './routes/test/loading'
 
 // Create/Update Routes
 
-const TestRoute = TestImport.update({
-  id: '/test',
-  path: '/test',
+const TableRoute = TableImport.update({
+  id: '/table',
+  path: '/table',
   getParentRoute: () => rootRoute,
 } as any)
 
 const IndexRoute = IndexImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const TestLoadingRoute = TestLoadingImport.update({
+  id: '/test/loading',
+  path: '/test/loading',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -39,11 +46,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexImport
       parentRoute: typeof rootRoute
     }
-    '/test': {
-      id: '/test'
-      path: '/test'
-      fullPath: '/test'
-      preLoaderRoute: typeof TestImport
+    '/table': {
+      id: '/table'
+      path: '/table'
+      fullPath: '/table'
+      preLoaderRoute: typeof TableImport
+      parentRoute: typeof rootRoute
+    }
+    '/test/loading': {
+      id: '/test/loading'
+      path: '/test/loading'
+      fullPath: '/test/loading'
+      preLoaderRoute: typeof TestLoadingImport
       parentRoute: typeof rootRoute
     }
   }
@@ -53,37 +67,42 @@ declare module '@tanstack/react-router' {
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/test': typeof TestRoute
+  '/table': typeof TableRoute
+  '/test/loading': typeof TestLoadingRoute
 }
 
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/test': typeof TestRoute
+  '/table': typeof TableRoute
+  '/test/loading': typeof TestLoadingRoute
 }
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexRoute
-  '/test': typeof TestRoute
+  '/table': typeof TableRoute
+  '/test/loading': typeof TestLoadingRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/test'
+  fullPaths: '/' | '/table' | '/test/loading'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/test'
-  id: '__root__' | '/' | '/test'
+  to: '/' | '/table' | '/test/loading'
+  id: '__root__' | '/' | '/table' | '/test/loading'
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  TestRoute: typeof TestRoute
+  TableRoute: typeof TableRoute
+  TestLoadingRoute: typeof TestLoadingRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  TestRoute: TestRoute,
+  TableRoute: TableRoute,
+  TestLoadingRoute: TestLoadingRoute,
 }
 
 export const routeTree = rootRoute
@@ -97,14 +116,18 @@ export const routeTree = rootRoute
       "filePath": "__root.tsx",
       "children": [
         "/",
-        "/test"
+        "/table",
+        "/test/loading"
       ]
     },
     "/": {
       "filePath": "index.tsx"
     },
-    "/test": {
-      "filePath": "test.tsx"
+    "/table": {
+      "filePath": "table.tsx"
+    },
+    "/test/loading": {
+      "filePath": "test/loading.tsx"
     }
   }
 }
