@@ -18,6 +18,7 @@ declare module "styled-components" {
   export interface DefaultTheme {
     colors: {
       brand: colorShades;
+      gray: colorShades;
       danger: colorShades;
       warning: colorShades;
       success: colorShades;
